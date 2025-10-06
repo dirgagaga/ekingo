@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - Portal Evaluasi Desa Rapak Lambur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .register-card {
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-card bg-white p-8 rounded-2xl shadow-xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Buat Akun Baru</h1>
+            <p class="text-gray-600 mt-2">Isi form di bawah untuk mendaftar.</p>
+        </div>
+        
+        <form id="register-form">
+            <div class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Nama Pengguna Baru</label>
+                    <input type="text" id="username" name="username" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Pilih nama pengguna unik">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
+                    <input type="password" id="password" name="password" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Minimal 6 karakter">
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all duration-300">
+                    Daftar
+                </button>
+            </div>
+            
+            <p id="message" class="mt-4 text-center text-sm"></p>
+
+            <div class="mt-6 text-center text-sm">
+                <p>Sudah punya akun? <a href="index.html" class="font-medium text-blue-600 hover:underline">Login di sini</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const registerForm = document.getElementById('register-form');
+        const messageElement = document.getElementById('message');
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            messageElement.textContent = '';
+            messageElement.className = 'mt-4 text-center text-sm';
+
+            const username = registerForm.username.value.trim();
+            const password = registerForm.password.value;
+
+            if (password.length < 6) {
+                messageElement.textContent = 'Kata sandi harus minimal 6 karakter.';
+                messageElement.classList.add('text-red-600');
+                return;
+            }
+
+            // Ambil data pengguna yang sudah ada dari localStorage
+            let users = JSON.parse(localStorage.getItem('portalUsers')) || {};
+
+            // Cek apakah nama pengguna sudah digunakan
+            if (users[username]) {
+                messageElement.textContent = 'Nama pengguna ini sudah digunakan. Silakan pilih yang lain.';
+                messageElement.classList.add('text-red-600');
+            } else {
+                // Simpan pengguna baru
+                users[username] = password;
+                localStorage.setItem('portalUsers', JSON.stringify(users));
+                
+                messageElement.textContent = 'Pendaftaran berhasil! Anda akan diarahkan ke halaman login...';
+                messageElement.classList.add('text-green-600');
+
+                // Arahkan ke halaman login setelah 2 detik
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        });
+    </script>
+
+</body>
+</html>
+
