@@ -1,0 +1,25 @@
+{
+  "name": "asus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.901.0",
+    "@aws-sdk/s3-request-presigner": "^3.901.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dirgagaga/ekingo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dirgagaga/ekingo/issues"
+  },
+  "homepage": "https://github.com/dirgagaga/ekingo#readme"
+}
